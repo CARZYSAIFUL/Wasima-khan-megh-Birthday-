@@ -22,6 +22,7 @@
         .love { position: fixed; top: -20px; font-size: 20px; animation: fall linear infinite; z-index: 999; }
         @keyframes fall { to { transform: translateY(110vh); } }
         footer { margin-top: 40px; font-size: 14px; opacity: 0.8; padding-bottom: 20px; }
+        footer a:hover { color: #ffe6e6 !important; }
     </style>
 </head>
 <body>
@@ -47,7 +48,10 @@
     </div>
 
     <div class="typing" id="typing"></div>
-    <footer>Developed by Saiful</footer>
+    
+    <footer>
+        Developed by <a href="https://www.facebook.com/uponnashpremik" target="_blank" style="color: white; text-decoration: none; font-weight: bold; border-bottom: 1px dashed white;">Saiful</a>
+    </footer>
 </div>
 
 <script>
@@ -55,9 +59,8 @@
         document.getElementById("giftIcon").style.display = "none";
         document.getElementById("slider").style.display = "block";
         
-        // Music Play
         const audio = document.getElementById("bdayMusic");
-        audio.play().catch(e => console.log("Audio play blocked by browser. Click anywhere to play."));
+        audio.play().catch(e => console.log("Audio play blocked."));
 
         confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
         startSlide();
@@ -67,12 +70,14 @@
     let currentIndex = 0;
     function startSlide() {
         const slides = document.querySelectorAll(".slide");
-        slides[currentIndex].style.display = "block";
-        setInterval(() => {
-            slides[currentIndex].style.display = "none";
-            currentIndex = (currentIndex + 1) % slides.length;
+        if(slides.length > 0) {
             slides[currentIndex].style.display = "block";
-        }, 3000);
+            setInterval(() => {
+                slides[currentIndex].style.display = "none";
+                currentIndex = (currentIndex + 1) % slides.length;
+                slides[currentIndex].style.display = "block";
+            }, 3000);
+        }
     }
 
     const message = "You are my peace, my happiness, and my forever love 💖 Thank you for being in my life.";
