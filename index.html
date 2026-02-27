@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Megh </title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #ff9eb5, #ff6f91, #ff4d6d); background-size: 400% 400%; animation: bgMove 10s ease infinite; text-align: center; color: white; overflow-x: hidden; }
+        @keyframes bgMove { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
+        .card { padding: 30px 20px; max-width: 420px; margin: auto; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 40px; margin-bottom: 5px; }
+        .video-box iframe { width: 100%; height: 200px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.4); border: none; }
+        .gift-btn { font-size: 80px; margin-top: 25px; cursor: pointer; animation: shake 1.5s infinite; display: inline-block; }
+        @keyframes shake { 0%, 100% { transform: rotate(0) } 25% { transform: rotate(8deg) } 50% { transform: rotate(-8deg) } }
+        .slider { display: none; margin-top: 30px; }
+        .slide { display: none; animation: fadeIn 1s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .slide img { width: 100%; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,.4); }
+        .typing { margin-top: 25px; font-size: 18px; min-height: 60px; font-weight: 500; }
+        .love { position: fixed; top: -20px; font-size: 20px; animation: fall linear infinite; z-index: 999; }
+        @keyframes fall { to { transform: translateY(110vh); } }
+        footer { margin-top: 40px; font-size: 14px; opacity: 0.8; padding-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Happy Birthday<br>Wasima Khan Megh </h1>
+    <div style="font-size: 18px; margin-bottom: 20px;">28-02-2009</div>
+
+    <div class="video-box">
+        <iframe src="https://streamable.com/e/rzjxkd" allowfullscreen></iframe>
+    </div>
+
+    <audio id="bdayMusic">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="gift-btn" id="giftIcon" onclick="openGift()"></div>
+
+    <div class="slider" id="slider">
+        <div class="slide"><img src="gift-box.jpg"></div>
+        <div class="slide"><img src="image.jpg"></div>
+        <div class="slide"><img src="rose.jpg"></div>
+    </div>
+
+    <div class="typing" id="typing"></div>
+    <footer>Developed by Saiful</footer>
+</div>
+
+<script>
+    function openGift() {
+        document.getElementById("giftIcon").style.display = "none";
+        document.getElementById("slider").style.display = "block";
+        
+        // Music Play
+        const audio = document.getElementById("bdayMusic");
+        audio.play().catch(e => console.log("Audio play blocked by browser. Click anywhere to play."));
+
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+        startSlide();
+        startTyping();
+    }
+
+    let currentIndex = 0;
+    function startSlide() {
+        const slides = document.querySelectorAll(".slide");
+        slides[currentIndex].style.display = "block";
+        setInterval(() => {
+            slides[currentIndex].style.display = "none";
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].style.display = "block";
+        }, 3000);
+    }
+
+    const message = "You are my peace, my happiness, and my forever love  Thank you for being in my life.";
+    let charIndex = 0;
+    function startTyping() {
+        const typingElement = document.getElementById("typing");
+        const typingInterval = setInterval(() => {
+            typingElement.innerHTML += message.charAt(charIndex);
+            charIndex++;
+            if (charIndex >= message.length) clearInterval(typingInterval);
+        }, 60);
+    }
+
+    function createLove() {
+        const love = document.createElement("div");
+        love.className = "love";
+        love.innerHTML = "";
+        love.style.left = Math.random() * 100 + "vw";
+        love.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(love);
+        setTimeout(() => love.remove(), 7000);
+    }
+    setInterval(createLove, 400);
+</script>
+</body>
+</html>
